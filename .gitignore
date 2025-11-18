@@ -1,0 +1,105 @@
+# ==========================
+# 🌍 Global
+# ==========================
+.DS_Store
+*.log
+logs/
+*.tmp
+*.swp
+*.swo
+.env
+
+# ==========================
+# 🧠 IDE / Editor Settings
+# ==========================
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ==========================
+# ⚙️ Node.js (Backend)
+# ==========================
+quddle_ai_backend/node_modules/
+quddle_ai_backend/.env
+quddle_ai_backend/.env.local
+quddle_ai_backend/npm-debug.log*
+quddle_ai_backend/yarn-error.log*
+quddle_ai_backend/pnpm-debug.log*
+quddle_ai_backend/dist/
+quddle_ai_backend/.vercel/
+quddle_ai_backend/.next/
+quddle_ai_backend/.cache/
+
+# ==========================
+# 🐦 Flutter / Dart (Global)
+# ==========================
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+generated_plugin_registrant.*
+
+# ==========================
+# 🎨 Flutter Frontend (Quddle)
+# ==========================
+quddle_ai_frontend/.dart_tool/
+quddle_ai_frontend/build/
+quddle_ai_frontend/.packages
+quddle_ai_frontend/.flutter-plugins
+quddle_ai_frontend/.flutter-plugins-dependencies
+quddle_ai_frontend/coverage/
+quddle_ai_frontend/test_outputs/
+
+# 🚫 Ignore local image tests or unused assets
+quddle_ai_frontend/assets/quddle_logo2.png
+
+# ==========================
+# 🍏 iOS / macOS
+# ==========================
+**/Pods/
+**/Runner.xcworkspace/
+**/project.xcworkspace/
+**/xcuserdata/
+quddle_ai_frontend/ios/Flutter/ephemeral/
+quddle_ai_frontend/macos/Flutter/ephemeral/
+quddle_ai_frontend/ios/Podfile.lock
+quddle_ai_frontend/ios/Runner.xcodeproj/project.pbxproj
+
+# ==========================
+# 🤖 Android
+# ==========================
+quddle_ai_frontend/android/.gradle/
+quddle_ai_frontend/android/build/
+quddle_ai_frontend/android/local.properties
+quddle_ai_frontend/android/app/debug/
+quddle_ai_frontend/android/app/profile/
+quddle_ai_frontend/android/app/release/
+
+# Ignore experimental icon files
+quddle_ai_frontend/android/app/src/main/res/mipmap-*/launcher_icon.png
+
+# ==========================
+# 💻 Desktop Flutter build intermediates
+# ==========================
+quddle_ai_frontend/linux/flutter/ephemeral/
+quddle_ai_frontend/windows/flutter/ephemeral/
+
+# ==========================
+# 📊 Coverage / Reports
+# ==========================
+coverage/
+lcov.info
+
+# ==========================
+# 🧩 Misc / Conflict / Merge
+# ==========================
+*.generated.*
+*.orig
+*.rej
+*.bak
+*~ 

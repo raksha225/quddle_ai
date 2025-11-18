@@ -1,0 +1,21 @@
+1. installed crypto package: flutter pub add crypto
+2. added HLSCacheManager.dart
+3. changed reelScreen, now loaded reels in the homeScreen and passed to reelScreen
+4. added reelOverlay and reelPlayerItem
+5. set up S3 to auto convert on upload
+6. change bucket location in backend
+
+
+8. store new location on trigger // url, func. done in nodejs. updated supabase. AWS TRIGGER LEFT
+9. return only the reels converted // done
+10. make it cache reels in the home screen and on scroll // done
+
+TO:
+7. set aws to send trigger on upload
+11. set storage limit for cache
+12. add upload button there
+
+
+
+
+// take care of "// Remove once AWS trigger works"
