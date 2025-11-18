@@ -15,10 +15,10 @@ const getWallet = async (req, res) => {
       .single();
 
     if (error && error.code === 'PGRST116') {
-      // Create wallet if doesn't exist
+      // Create wallet if doesn't exist with initial balance of 0
       const { data: newWallet, error: createError } = await supabase
         .from('wallets')
-        .insert({ user_id: user.id, balance: 1000.00 })
+        .insert({ user_id: user.id, balance: 0.00 })
         .select()
         .single();
 
@@ -67,9 +67,88 @@ const getTransactions = async (req, res) => {
   }
 };
 
+// Add money to wallet (Virtual for testing)
+const addMoney = async (req, res) => {
+  try {
+    const user = req.user;
+    const { amount } = req.body;
+
+    // Validate amount
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid amount' 
+      });
+    }
+
+    if (amount < 50) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Minimum amount is AED 50' 
+      });
+    }
+
+    // Get user wallet
+    let { data: wallet, error: walletError } = await supabase
+      .from('wallets')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+
+    // Create wallet if doesn't exist
+    if (walletError && walletError.code === 'PGRST116') {
+      const { data: newWallet, error: createError } = await supabase
+        .from('wallets')
+        .insert({ user_id: user.id, balance: 0.00 })
+        .select()
+        .single();
+
+      if (createError) {
+        return res.status(400).json({ success: false, message: createError.message });
+      }
+      wallet = newWallet;
+    } else if (walletError) {
+      return res.status(400).json({ success: false, message: walletError.message });
+    }
+
+    // Add money to wallet
+    const newBalance = parseFloat(wallet.balance) + parseFloat(amount);
+    const { error: updateError } = await supabase
+      .from('wallets')
+      .update({ 
+        balance: newBalance,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', wallet.id);
+
+    if (updateError) {
+      return res.status(400).json({ success: false, message: updateError.message });
+    }
+
+    // Record transaction
+    await supabase.from('wallet_transactions').insert({
+      wallet_id: wallet.id,
+      amount: parseFloat(amount),
+      type: 'credit',
+      description: `Added money to wallet (Virtual Payment)`,
+      reference_type: 'wallet_topup',
+      reference_id: wallet.id
+    });
+
+    return res.status(200).json({ 
+      success: true, 
+      message: 'Money added successfully',
+      newBalance: newBalance
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 module.exports = {
   getWallet,
   getTransactions,
+  addMoney,
   POSTING_FEE,
   ADMIN_USER_ID
 };

@@ -121,15 +121,22 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColors.bgColor,
       appBar: AppBar(
-        title: const Text('Post Classified Ad'),
+        title: const Text('Post Classified Ad', style: TextStyle(color: Colors.black87)),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        iconTheme: const IconThemeData(color: Colors.black87),
         actions: [
           if (_walletBalance != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Chip(
-                avatar: const Icon(Icons.account_balance_wallet, size: 18),
-                label: Text('AED ${_walletBalance!.toStringAsFixed(2)}'),
+                avatar: const Icon(Icons.account_balance_wallet, size: 18, color: MyColors.primary),
+                label: Text(
+                  'AED ${_walletBalance!.toStringAsFixed(2)}',
+                  style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                ),
                 backgroundColor: MyColors.primary.withOpacity(0.1),
               ),
             ),
@@ -157,7 +164,7 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                     Expanded(
                       child: Text(
                         'Posting Fee: AED 50.00\nThis amount will be deducted from your wallet.',
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 14, color: Colors.black87),
                       ),
                     ),
                   ],
@@ -167,39 +174,79 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
               const SizedBox(height: 24),
 
               // Title
+              const Text('Title *', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _titleController,
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
-                  labelText: 'Title *',
                   hintText: 'Enter ad title',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: MyColors.primary, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-                validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                validator: (v) => v?.isEmpty ?? true ? 'Title is required' : null,
               ),
 
               const SizedBox(height: 16),
 
               // Description
+              const Text('Description *', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _descriptionController,
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
-                  labelText: 'Description *',
                   hintText: 'Describe your item',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: MyColors.primary, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
                 maxLines: 4,
-                validator: (v) => v?.isEmpty ?? true ? 'Required' : null,
+                validator: (v) => v?.isEmpty ?? true ? 'Description is required' : null,
               ),
 
               const SizedBox(height: 16),
 
               // Price
+              const Text('Price (AED)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _priceController,
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
-                  labelText: 'Price (AED)',
                   hintText: 'Enter price',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
+                  prefixIcon: const Icon(Icons.currency_exchange, color: MyColors.primary),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: MyColors.primary, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
                 keyboardType: TextInputType.number,
               ),
@@ -207,14 +254,28 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
               const SizedBox(height: 16),
 
               // Category
+              const Text('Category', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const SizedBox(height: 8),
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
-                  labelText: 'Category',
+                  hintText: 'Select category',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: MyColors.primary, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
                 items: _categories.map((cat) {
-                  return DropdownMenuItem(value: cat, child: Text(cat));
+                  return DropdownMenuItem(value: cat, child: Text(cat, style: const TextStyle(color: Colors.black87)));
                 }).toList(),
                 onChanged: (v) => setState(() => _selectedCategory = v),
               ),
@@ -222,19 +283,33 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
               const SizedBox(height: 16),
 
               // Location
+              const Text('Location', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _locationController,
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
-                  labelText: 'Location',
                   hintText: 'Enter location',
+                  hintStyle: TextStyle(color: Colors.grey[500]),
+                  prefixIcon: const Icon(Icons.location_on, color: MyColors.primary),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[400]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: MyColors.primary, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
 
               const SizedBox(height: 24),
 
               // Images
-              const Text('Images (Max 5)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text('Images (Max 5)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
               const SizedBox(height: 8),
               
               if (_images.isEmpty)
@@ -243,19 +318,17 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                   child: Container(
                     height: 150,
                     decoration: BoxDecoration(
-                      color: Colors.grey[200],
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey),
+                      border: Border.all(color: Colors.grey[400]!),
                     ),
-                    child: const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.add_photo_alternate, size: 48, color: Colors.grey),
-                          SizedBox(height: 8),
-                          Text('Tap to add images'),
-                        ],
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add_photo_alternate, size: 48, color: Colors.grey[600]),
+                        const SizedBox(height: 8),
+                        Text('Tap to add images', style: TextStyle(color: Colors.grey[600])),
+                      ],
                     ),
                   ),
                 )
@@ -276,7 +349,10 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: Image.file(_images[index], fit: BoxFit.cover),
+                              child: Container(
+                                color: Colors.white,
+                                child: Image.file(_images[index], fit: BoxFit.cover, width: double.infinity, height: double.infinity),
+                              ),
                             ),
                             Positioned(
                               top: 4,
@@ -302,8 +378,8 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                     const SizedBox(height: 8),
                     TextButton.icon(
                       onPressed: _pickImages,
-                      icon: const Icon(Icons.add_photo_alternate),
-                      label: const Text('Change Images'),
+                      icon: const Icon(Icons.add_photo_alternate, color: MyColors.primary),
+                      label: const Text('Change Images', style: TextStyle(color: MyColors.primary)),
                     ),
                   ],
                 ),
@@ -318,6 +394,7 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                   onPressed: _isLoading ? null : _postAd,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.primary,
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -326,7 +403,7 @@ class _PostClassifiedScreenState extends State<PostClassifiedScreen> {
                       ? const CircularProgressIndicator(color: Colors.white)
                       : const Text(
                           'Post Ad (AED 50)',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                 ),
               ),

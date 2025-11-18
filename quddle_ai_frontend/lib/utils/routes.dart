@@ -13,7 +13,7 @@ import '../screen/store/store_welcome_screen.dart';
 import '../screen/store/buyer/store_buyer_screen.dart';
 import '../screen/home/Profile_home_screen.dart';
 import '../screen/home/notification_screen.dart';
-import '../screen/chat/chatbot_screen.dart';
+// import '../screen/chat/chatbot_screen.dart';
 import '../screen/home/Home_search.dart';
 import '../screen/home/initial_screen.dart';
 import '../screen/advertiser/advertiser_dashboard_screen.dart';

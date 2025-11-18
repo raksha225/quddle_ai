@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../services/wallet_service.dart';
 import '../../utils/constants/colors.dart';
+import '../wallet/add_money_screen.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -34,6 +35,17 @@ class _WalletScreenState extends State<WalletScreen> {
       });
     } else {
       setState(() => _isLoading = false);
+    }
+  }
+
+  Future<void> _navigateToAddMoney() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AddMoneyScreen()),
+    );
+    
+    if (result == true) {
+      _loadWalletData(); // Refresh wallet data
     }
   }
 
@@ -96,6 +108,29 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
                     ),
 
+                    // Add Money Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton.icon(
+                          onPressed: _navigateToAddMoney,
+                          icon: const Icon(Icons.add),
+                          label: const Text('Add Money', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: MyColors.primary,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
                     // Quick info
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -113,7 +148,7 @@ class _WalletScreenState extends State<WalletScreen> {
                             Expanded(
                               child: Text(
                                 'Posting a classified ad costs AED 50.00',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(fontSize: 14, color: Colors.black87),
                               ),
                             ),
                           ],
@@ -134,12 +169,13 @@ class _WalletScreenState extends State<WalletScreen> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.black87,
                             ),
                           ),
                           Text(
                             '${_transactions.length} total',
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: Colors.grey[600],
                               fontSize: 14,
                             ),
                           ),
@@ -202,6 +238,7 @@ class _WalletScreenState extends State<WalletScreen> {
           transaction['description'] ?? 'Transaction',
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
+          style: const TextStyle(color: Colors.black87),
         ),
         subtitle: Text(
           DateTime.parse(transaction['created_at']).toString().split('.')[0],

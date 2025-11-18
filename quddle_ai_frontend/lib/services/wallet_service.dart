@@ -51,4 +51,30 @@ class WalletService {
       return {'success': false, 'message': 'Network error: ${e.toString()}'};
     }
   }
+
+  // Add money to wallet (Virtual)
+  static Future<Map<String, dynamic>> addMoneyVirtual(double amount) async {
+    try {
+      final token = await SecureStorage.readToken();
+      if (token == null) {
+        return {'success': false, 'message': 'Authentication required'};
+      }
+
+      final response = await http.post(
+        Uri.parse('$_baseUrl/wallet/add-money'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: jsonEncode({
+          'amount': amount,
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+      return data;
+    } catch (e) {
+      return {'success': false, 'message': 'Network error: ${e.toString()}'};
+    }
+  }
 }
